@@ -1,0 +1,15 @@
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const C = require('./core.js');
+const source = fs.readFileSync('example.csv','utf8');
+const clean = C.readSchedule(source);
+assert.equal(clean.sessions.length,6); assert.equal(clean.issues.length,0);
+const conflict = C.readSchedule(source.replace('09:00,09:45,Maple','09:00,10:30,Maple'));
+assert.deepEqual(conflict.issues.map(x => x.sourceRow),[2,3]);
+const v = C.viewAt(clean.sessions, '2026-11-12',610,'maple');
+assert.equal(v.current[0].title,'Building safer handovers');
+assert.equal(v.next[0].title,'Practical checklists'); assert.equal(v.finished,1);
+fs.mkdirSync('output',{recursive:true});
+fs.writeFileSync('output/sorted.csv',C.scheduleCSV(clean.sessions));
+fs.writeFileSync('output/demo.json',JSON.stringify({conflict:conflict.issues,preview:v},null,2));
+console.log('Six sessions imported. Two overlap records held. Corrected Maple preview at 10:10 shows one current, one next and hides one finished session. Sorted CSV saved.');

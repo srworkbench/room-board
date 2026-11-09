@@ -54,10 +54,10 @@
       const problem = message => issues.push({ sourceRow, message });
       if (row.length !== headers.length) { problem('Column count does not match the header.'); return; }
       const get = key => (row[headers.indexOf(key)] || '').trim();
-      const date = dateKey(get('date')), start = minutes(get('start')), end = minutes(get('end'));
+      const date = dateKey(get('date')), start = minutes(get('start')), end = get('end') === '24:00' ? 1440 : minutes(get('end'));
       const room = get('room'), title = get('title'), speaker = get('speaker');
       if (!date) problem('Date must be a real date in YYYY-MM-DD format (2000–2199).');
-      if (start === null || end === null) problem('Start and end must use 24-hour HH:MM.');
+      if (start === null || end === null) problem('Use 24-hour HH:MM. Only an end time may be 24:00.');
       else if (end <= start) problem('End must be after start on the same day. Split sessions that cross midnight.');
       if (!room || !title) problem('Room and title are required.');
       if (room.length > 100 || title.length > 240 || speaker.length > 160) problem('Keep rooms to 100, titles to 240 and speakers to 160 characters.');

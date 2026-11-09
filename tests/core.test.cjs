@@ -47,6 +47,14 @@ test('venue clock handles date boundaries and daylight-saving changes', () => {
   assert.deepEqual(C.clockAt(new Date('2026-11-01T09:30:00Z'),'America/Los_Angeles'), {date:'2026-11-01',minute:90});
   assert.throws(() => C.clockAt(new Date(),'Invalid/Zone'));
 });
+test('midnight end covers the whole final minute and exports as 24:00', () => {
+  const r = C.readSchedule(header + line('23:30','24:00') + line('00:00','00:30').replace('2026-11-12','2026-11-13'));
+  assert.deepEqual(r.issues,[]);
+  assert.equal(C.viewAt(r.sessions,'2026-11-12',1439,'maple').current[0].end,1440);
+  assert.equal(C.viewAt(r.sessions,'2026-11-13',0,'maple').current[0].start,0);
+  assert.equal(C.parseCSV(C.scheduleCSV(r.sessions))[1][2],'24:00');
+  assert.notEqual(C.readSchedule(header + line('24:00','24:00')).issues.length,0);
+});
 test('CSV export is chronological, quoted and prevents spreadsheet formulas', () => {
   const r = C.readSchedule(header + line('11:00','12:00','Maple','=1+1') + line('09:00','10:00','Cedar','Normal'));
   const rows = C.parseCSV(C.scheduleCSV(r.sessions));

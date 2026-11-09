@@ -13,7 +13,7 @@
     <div class="workspace">
       <section class="setup editor" aria-label="Set up your board">
         <h2>1. Add your schedule</h2>
-        <p class="muted">One row per session. Use dates like 2026-11-12 and 24-hour times like 09:30. Export your sheet as CSV first.</p>
+        <p class="muted">One row per session. Use dates like 2026-11-12 and 24-hour times like 09:30. An end of 24:00 means midnight. Export your sheet as CSV first.</p>
         <div class="actions"><button id="example">Load example</button><label class="file-button">Choose CSV<input id="file" type="file" accept=".csv,text/csv" aria-label="Choose CSV file"></label></div>
         <label for="source">Schedule CSV</label><textarea id="source" rows="7" spellcheck="false" placeholder="date,start,end,room,title,speaker"></textarea>
         <button id="load" class="primary">Build board</button>

@@ -24,7 +24,7 @@ date,start,end,room,title,speaker
 2026-11-12,11:00,11:45,Maple,Practical checklists,Facilitator B
 ```
 
-`speaker` is optional. The other five columns are required. Additional columns are ignored. Dates use `YYYY-MM-DD`; times use 24-hour `HH:MM`. Each session must end later on the same date. Split overnight sessions into separate same-day records. Room names ignore case and repeated spaces when checking overlaps.
+`speaker` is optional. The other five columns are required. Additional columns are ignored. Dates use `YYYY-MM-DD`; times use 24-hour `HH:MM`. Each session must end later on the same date; an end of `24:00` means midnight at the end of that date. Split overnight sessions into separate records: for example, `23:30–24:00` on one date and `00:00–00:30` on the next. Room names ignore case and repeated spaces when checking overlaps.
 
 Choose a CSV file to build automatically, or paste CSV and click **Build board**. Parallel sessions in different rooms are allowed. Missing values, invalid dates/times and same-room overlaps hold the display until corrected. Edit the CSV text or fix your spreadsheet and import again. Record numbers count the header and blank records; a quoted field containing line breaks is still one record.
 

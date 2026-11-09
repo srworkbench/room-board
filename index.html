@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Room Board · Your session schedule, on screen</title>
+  <meta name="description" content="Turn a conference CSV into a current-and-next session board. Free, no account, processed in your browser.">
+  <link rel="stylesheet" href="style.css"><script defer src="core.js"></script><script defer src="app.js"></script>
+</head>
+<body>
+  <header class="site-head"><a href="./" class="brand">▥ Room Board</a><span>FROM SPREADSHEET TO SESSION SCREEN</span></header>
+  <main>
+    <section class="intro editor"><p class="eyebrow">FOR CONFERENCE & WORKSHOP STAFF</p><h1>The right session.<br>At the right door.</h1><p>Load your schedule, choose a room, and show what’s on now and next. No account. Your CSV stays in this tab.</p></section>
+    <div class="workspace">
+      <section class="setup editor" aria-label="Set up your board">
+        <h2>1. Add your schedule</h2>
+        <p class="muted">One row per session. Use dates like 2026-11-12 and 24-hour times like 09:30. Export your sheet as CSV first.</p>
+        <div class="actions"><button id="example">Load example</button><label class="file-button">Choose CSV<input id="file" type="file" accept=".csv,text/csv" aria-label="Choose CSV file"></label></div>
+        <label for="source">Schedule CSV</label><textarea id="source" rows="7" spellcheck="false" placeholder="date,start,end,room,title,speaker"></textarea>
+        <button id="load" class="primary">Build board</button>
+        <p id="status" role="status" aria-live="polite">Start with the example, or load your CSV.</p>
+        <ul id="issues" class="issues" aria-label="Schedule issues"></ul>
+        <div id="controls" hidden>
+          <h2>2. Choose the screen</h2>
+          <label for="room">Room</label><select id="room"></select>
+          <label for="zone">Venue time zone</label><select id="zone"></select>
+          <p class="muted">Sessions use the venue’s wall-clock time. Check this zone and the computer clock before displaying.</p>
+          <fieldset><legend>Preview a moment</legend><div class="preview-fields"><label>Date<input type="date" id="date"></label><label>Time<input type="time" id="time" value="10:10"></label></div><button id="preview">Preview this moment</button></fieldset>
+          <div class="actions"><button id="live" class="primary">Use live venue clock</button><button id="display">Open room display</button></div>
+          <button id="download" class="quiet">Download sorted CSV</button>
+          <p class="muted">Keep this tab open and the screen awake. Schedule changes need a fresh CSV on each screen. Nothing syncs between devices.</p>
+        </div>
+      </section>
+      <section id="board" class="board" aria-label="Session board">
+        <div class="board-top"><span id="mode" class="mode">WAITING FOR SCHEDULE</span><button id="exit" hidden>Exit display</button></div>
+        <h2 id="room-title">Your room, ready.</h2><p id="clock" class="board-clock">A clear view for the people arriving next.</p>
+        <div id="board-content"><div class="empty">Try the made-up two-room workshop.<br>Six sessions. One schedule to maintain.</div></div>
+        <p id="board-note" class="board-note">No uploads · No sign-in · No installation</p>
+      </section>
+    </div>
+    <section class="limits editor"><h2>A schedule screen, kept simple.</h2><p>Up to 1,000 same-day session records per file, across multiple dates and rooms. Parallel sessions in different rooms are welcome; overlaps in one room must be corrected before display. There are no sponsor ads, remote controls, calendar feeds or booking functions.</p><p>CSV record numbers include the header and blank records. Text with quoted line breaks is one record. The display updates every 15 seconds while this tab is running.</p></section>
+  </main>
+  <footer class="editor">Room Board · An independent, open-source tool from SR Workbench.</footer>
+</body>
+</html>
